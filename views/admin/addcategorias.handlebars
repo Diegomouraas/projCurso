@@ -1,0 +1,20 @@
+
+
+<div class="position-relative top-0 start-50 translate-middle-x w-75 p-3">
+    {{#each erros}}
+        <div class="alert alert-danger">{{texto}}</div>
+    {{else}}
+
+    {{/each}}
+    <div class="">
+        <form action="/admin/categorias/nova" method="POST">
+            <label for="nome">Nome: </label>
+                <input type="text" name="nome" placeholder="Nome da categoria" class="form-control">
+            <label for="slug">Slug: </label/>
+                <input type="text" name="slug" placeholder="Slug da categoria" class="form-control">
+                <br>
+            <button type="submit" class="btn btn-success">Criar categoria</button>
+        </form>
+    </div>
+</div>
+
