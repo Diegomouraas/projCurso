@@ -12,19 +12,20 @@ router.get('/posts', (req, res) =>{
     res.send("pagina de posts")
 })
 
-router.get('/categorias/:nam', (req, res) => {
-
-    console.log(req.params.nam)
+router.get('/categorias', (req, res) => {
 
     Categorias.find().then((categorias) => {
         if(categorias.length == 0) {
-            res.send("nada encontrado")
+            req.flash("error_msg", "nada encontrado")
+            res.redirect("/admin")
         }else{
-            res.send(categorias)
+            res.render("admin/categorias", {categorias: categorias})
         }
         
-    }).catch(() => {
-
+    }).catch((erro) => {
+        req.flash("error_msg", "Houve um erro ao listar as categorias")
+        console.log(erro)
+        res.redirect("/admin")
     })
     //res.render("admin/categorias")
 })
