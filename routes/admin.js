@@ -14,12 +14,13 @@ router.get('/posts', (req, res) =>{
 
 router.get('/categorias', (req, res) => {
 
-    Categorias.find().then((categorias) => {
+    Categorias.find().lean().then((categorias) => {
         if(categorias.length == 0) {
             req.flash("error_msg", "nada encontrado")
             res.redirect("/admin")
         }else{
             res.render("admin/categorias", {categorias: categorias})
+            
         }
         
     }).catch((erro) => {
@@ -69,6 +70,10 @@ router.post('/categorias/nova', (req, res) => {
         
     }
 
+    
+})
+
+router.get("/categorias/edit/:id", (req, res) => {
     
 })
 

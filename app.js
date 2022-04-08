@@ -40,7 +40,7 @@ const flash = require('connect-flash');
 // Rotas
     app.use('/admin', admin)
 // outros
-    const port = 8081
+    const port = 8080
     app.listen(port, () => {
         console.log("Servidor aberto na porta: "+ port)
     });
