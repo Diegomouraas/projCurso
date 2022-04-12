@@ -1,5 +1,10 @@
 <div class="position-relative top-0 start-50 translate-middle-x w-75 p-3">
-    <h2>Lista de categorias</h2>
+    <h2>Lista de categorias</h2><br>
+    
+    {{#each erros}}
+        <div class="alert alert-danger">{{texto}}</div>
+    {{/each}}
+   
     <hr>
     <a href="/admin/categorias/add"><button class="btn btn-success">Nova categoria</button></a>
 
@@ -10,6 +15,11 @@
                 <small>{{slug}}</small><br>
                 
                 <a href="/admin/categorias/edit/{{_id}}"><button class="btn btn-success mt-4">Editar categoria</button></a>
+                
+                <form action="/admin/categoria/deletar" method="post">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger mt-2">Deletar categoria</button>
+                </form>
             </div>
         </div>
     {{else}}

@@ -1,17 +1,15 @@
 
 
-<div class="position-relative top-0 start-50 translate-middle-x w-75 p-3">
-    {{#each erros}}
-        <div class="alert alert-danger">{{texto}}</div>
-    {{else}}
+<div class="position-relative top-0 start-50 translate-middle-x w-75 p-3"> 
+    <h3>Editar Categoria</h3>
+    <div class="card">
+        <form action="/admin/categorias/edit" method="POST">
+            <input type="hidden" name="id" value="{{categoria._id}}">
 
-    {{/each}}
-    <div class="">
-        <form action="/admin/categorias/nova" method="POST">
             <label for="nome">Nome: </label>
-                <input type="text" name="nome" placeholder="Nome da categoria" class="form-control">
+                <input type="text" name="nome" id="nome" placeholder="Nome da categoria" class="form-control" value="{{categoria.nome}}">
             <label for="slug">Slug: </label/>
-                <input type="text" name="slug" placeholder="Slug da categoria" class="form-control">
+                <input type="text" name="slug" id="slug" placeholder="Slug da categoria" class="form-control" value="{{categoria.slug}}">
                 <br>
             <button type="submit" class="btn btn-success">Editar categoria</button>
         </form>

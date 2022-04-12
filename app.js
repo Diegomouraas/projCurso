@@ -27,9 +27,16 @@ const flash = require('connect-flash');
         app.use(bodyParser.urlencoded({extended: true}));
         app.use(bodyParser.json());
     // HandleBars
-        app.engine('handlebars', engine({defaultLayout: 'main'}))
+        app.engine('handlebars', engine({
+            defaultLayout: 'main',
+            runtimeOptions: {
+                allowProtoPropertiesByDefault: true,
+                allowProtoMethodsByDefault: true
+            }
+        }))
         app.set('view engine', 'handlebars');
     // Mongoose
+        mongoose.Promise = global.Promise
         mongoose.connect("mongodb://localhost/blogapp").then(() => {
             console.log("conectado ao DB Mongo")
         }).catch((erro) => {
