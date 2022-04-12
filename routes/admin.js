@@ -1,8 +1,11 @@
 const express = require("express");
+const { route } = require("express/lib/application");
 const router = express.Router();
 const mongoose = require("mongoose");
 require("../models/Categoria")
 const Categorias = mongoose.model('categorias')
+require("../models/Postagens")
+const Postagens = mongoose.model("postagens")
 
 router.get('/', (req, res) => {
     res.render("admin/index")
@@ -117,6 +120,45 @@ router.post("/categoria/deletar", (req, res) => {
         req.flash("error_msg", "Houve um erro ao deletar")
         res.redirect("/admin/categorias")
     })
+})
+
+router.get("/postagens", (req, res) => {
+    res.render("admin/postagens")
+})
+
+router.get("/postagens/add", (req, res) => {
+    Categorias.find().lean().then((categorias) => {
+        res.render("admin/addpostagem", {categorias: categorias})
+    }).catch((err) => {
+        req.flash("error_msg", "Erro ao carregar")
+        res.redirect("/admin/categorias")
+    })
+    
+})
+
+router.post("/postagens/nova", (req, res) => {
+    var errors = []
+    if(req.body.categoria == 0){
+        errors.push({texto: "Categoria Invalida"})
+    }else{
+        const novaPostagem = {
+            titulo: req.body.titulo,
+            descricao: req.body.descricao,
+            conteudo: req.body.conteudo,
+            categoria: req.body.categoria,
+            slug: req.body.slug
+        }
+
+        new Postagens(novaPostagem).save().then(() => {
+            req.flash("success_msg", "Postagem criada com sucesso")
+            res.redirect("/admin/postagens")
+        }).catch((err) => {
+            req.flash("error_msg", "Houve um erro durante o save: ", err)
+            res.redirect("/admin/postagens")
+        })
+    }
+
+
 })
 
 module.exports = router
