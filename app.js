@@ -8,6 +8,7 @@ const path = require("path");
 const mongoose = require('mongoose');
 const session = require("express-session");
 const flash = require('connect-flash');
+const usuarios = require("./routes/usuario");
 
 // Configure
     // Sessao
@@ -46,6 +47,7 @@ const flash = require('connect-flash');
         app.use(express.static(path.join(__dirname, "/public")))
 // Rotas
     app.use('/admin', admin)
+    app.use("/usuarios", usuarios)
 // outros
     const port = 8080
     app.listen(port, () => {

@@ -123,7 +123,13 @@ router.post("/categoria/deletar", (req, res) => {
 })
 
 router.get("/postagens", (req, res) => {
-    res.render("admin/postagens")
+    Postagens.find().populate("categoria").sort({data:"desc"}).then((postagens) => {
+        res.render("admin/postagens", {postagens, postagens})
+    }).catch((err) => {
+        req.flash("error_msg", "houve um erro ao listar as postagens")
+        res.redirect("/admin")
+    })
+    
 })
 
 router.get("/postagens/add", (req, res) => {
